@@ -46,6 +46,14 @@ typedef long long int int64_t;
 # endif  /* __GNUC__ >= 4 */
 #endif  /* WEBP_EXTERN */
 
+#ifndef WEBP_EXTERN_V
+# if defined (_MSC_VER) && defined (WEBP_USE_DLL)
+#  define WEBP_EXTERN_V __declspec (dllimport) extern
+# else
+#  define WEBP_EXTERN_V WEBP_EXTERN
+# endif
+#endif
+
 // Macro to check ABI compatibility (same major revision number)
 #define WEBP_ABI_IS_INCOMPATIBLE(a, b) (((a) >> 8) != ((b) >> 8))
 
