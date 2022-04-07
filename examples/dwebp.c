@@ -33,7 +33,7 @@ static int quiet = 0;
 extern "C" {
 #endif
 
-extern void* VP8GetCPUInfo;   // opaque forward declaration.
+WEBP_EXTERN_V void* VP8GetCPUInfo;   // opaque forward declaration.
 
 #ifdef __cplusplus
 }    // extern "C"
