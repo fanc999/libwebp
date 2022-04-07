@@ -222,10 +222,19 @@ set_target_properties(
   PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/sharpyuv/sharpyuv.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h")
 
+set(webp_lib_cflags)
+set(webp_lib_use_cflags)
+
 if(MSVC)
   # avoid security warnings for e.g., fopen() used in the examples.
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
   add_definitions(-D_CRT_NONSTDC_NO_WARNINGS)
+
+  # Set up compiler flags for DLL builds on Visual Studio
+  if (${BUILD_SHARED_LIBS})
+    set(webp_lib_cflags ${webp_lib_cflags} "-DWEBP_EXTERN=__declspec(dllexport)extern")
+    set(webp_lib_use_cflags ${webp_lib_use_cflags} "-DWEBP_USE_DLL")
+  endif()
 else()
   add_definitions(-Wall)
 endif()
