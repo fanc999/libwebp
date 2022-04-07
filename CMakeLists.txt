@@ -493,6 +493,7 @@ if(WEBP_BUILD_DWEBP)
   add_executable(dwebp ${DWEBP_SRCS})
   target_link_libraries(dwebp exampleutil imagedec imageenc)
   target_include_directories(dwebp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src)
+  target_compile_definitions(dwebp PRIVATE ${webp_lib_use_cflags})
   install(TARGETS dwebp RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
@@ -502,6 +503,7 @@ if(WEBP_BUILD_CWEBP)
   add_executable(cwebp ${CWEBP_SRCS})
   target_link_libraries(cwebp exampleutil imagedec webp)
   target_include_directories(cwebp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src)
+  target_compile_definitions(cwebp PRIVATE ${webp_lib_use_cflags})
   install(TARGETS cwebp RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
@@ -626,6 +628,8 @@ if(WEBP_BUILD_EXTRAS)
   target_include_directories(webp_quality
                              PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}
                                      ${CMAKE_CURRENT_BINARY_DIR})
+
+  target_compile_definitions(webp_quality PRIVATE ${webp_lib_use_cflags})
 
   # vwebp_sdl
   find_package(SDL)
