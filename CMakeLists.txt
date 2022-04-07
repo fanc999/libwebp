@@ -225,6 +225,7 @@ ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h")
 if(MSVC)
   # avoid security warnings for e.g., fopen() used in the examples.
   add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  add_definitions(-D_CRT_NONSTDC_NO_WARNINGS)
 else()
   add_definitions(-Wall)
 endif()
