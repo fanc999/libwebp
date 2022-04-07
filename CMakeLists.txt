@@ -327,6 +327,16 @@ set_target_properties(sharpyuv
                       webpdsp
                       webputils
                       PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+# Apply the compiler flag to define WEBP_EXTERN as needed
+target_compile_definitions(sharpyuv PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webpdecode PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webpdsp PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webpdspdecode PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webpencode PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webputils PRIVATE ${webp_lib_cflags})
+target_compile_definitions(webputilsdecode PRIVATE ${webp_lib_cflags})
+
 configure_pkg_config("src/libwebp.pc")
 
 # Build the webp demux library.
@@ -342,6 +352,9 @@ set_target_properties(
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/demux.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/mux_types.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h")
+
+# Apply the compiler flag to define WEBP_EXTERN as needed
+target_compile_definitions(webpdemux PRIVATE ${webp_lib_cflags})
 
 configure_pkg_config("src/demux/libwebpdemux.pc")
 
@@ -505,6 +518,7 @@ if(WEBP_BUILD_LIBWEBPMUX)
                                    "${CMAKE_CURRENT_SOURCE_DIR}/src/webp/mux.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/mux_types.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h;")
+  target_compile_definitions(webpmux PRIVATE ${webp_lib_cflags})
   list(APPEND INSTALLED_LIBRARIES webpmux)
   configure_pkg_config("src/mux/libwebpmux.pc")
 endif()
